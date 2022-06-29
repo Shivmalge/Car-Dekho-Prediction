@@ -77,7 +77,11 @@
 ![image](https://user-images.githubusercontent.com/104545490/175612386-80b850cd-a4a9-46db-b977-4bcc0fe9d64e.png)
 
 
+Project By - Shivsharan Malage
 
+[Github](https://github.com/Shivmalge)
+
+[Linkedin](https://www.linkedin.com/in/shivsharan-malage-99802a230/)
 
 
  
