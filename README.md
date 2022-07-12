@@ -43,7 +43,7 @@
     
  ![image](https://user-images.githubusercontent.com/104545490/175608634-7c1f6482-29cc-4b74-a410-993280a1349d.png)
  
- After doing all feature engineering my final dataste will be like this:
+ After doing all feature engineering my final dataset will be like this:
  
  ![image](https://user-images.githubusercontent.com/104545490/175609990-a704b96f-052a-4fbe-97b6-b9f2bbf673df.png)
 
@@ -64,7 +64,7 @@
 
 ![image](https://user-images.githubusercontent.com/104545490/175611568-082fd94c-47f6-49a1-ae58-c721443c2696.png)
 
-### 5. Dividing the datat into training and testing purpose 
+### 5. Dividing the data into training and testing purpose 
 
 ![image](https://user-images.githubusercontent.com/104545490/175612082-0e9d2ed1-5981-47fd-b79c-a9e11b9dcafd.png)
 
@@ -72,7 +72,7 @@
 
 ![image](https://user-images.githubusercontent.com/104545490/175612183-d3d430e8-c875-41b1-a9a7-ec140f8e11e1.png)
 
-### 7. Predicted values after testing datat
+### 7. Predicted values after testing data
 
 ![image](https://user-images.githubusercontent.com/104545490/175612386-80b850cd-a4a9-46db-b977-4bcc0fe9d64e.png)
 
