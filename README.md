@@ -72,7 +72,7 @@
 
 ![image](https://user-images.githubusercontent.com/104545490/175612183-d3d430e8-c875-41b1-a9a7-ec140f8e11e1.png)
 
-### 7. Predicted values after testing data
+### 7. Predicted values(in lakhs) after testing data
 
 ![image](https://user-images.githubusercontent.com/104545490/175612386-80b850cd-a4a9-46db-b977-4bcc0fe9d64e.png)
 
