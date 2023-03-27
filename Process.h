@@ -6,12 +6,32 @@ using namespace std;
 class Process
 {
 public:
-    int name;  // process name
-    int burst;    // burst time
-    int rem;      // remaining time
-    int wait_time;
-    string status;
-    int num_of_cycles_req;
-    void run_process();
+	int ID;                  //process ID
+	int num;
+	int rem_time;           //Remaining time
+	string status;          //Status of process
+	int no_of_cycles_req; 
+	string name;
+	int burst;
+	int timeToWait;
+
+	Process();
+
+	void setname(string name);
+	string getname(void);
+
+	void setBurstTime(int burst);
+	int getBurstTime(void);
+
+
+
+	
+	//void setID(int ID);
+	int getiD();;
+	//void setnoofprocess(int num);
+	//int getnoofprocess(void);
+	Process() {
+
+	}
 };
 
