@@ -4,6 +4,18 @@
 #include <string.h>
 using namespace std;
 
+
+void User::setQuatumTime(int Quantum)
+{
+	quantum = Quantum;
+}
+
+int User::getQuantumTime()
+{
+	return quantum;
+}
+
+
 //Funtion to display user menu
 void User::processUserMenu(void)
 {
