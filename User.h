@@ -7,6 +7,9 @@ class User
 {
 	
 public:
-	void processUserMenu(void);
+	int quantum;
+	void ProcessUserMenu(void);
+	void setQuatumTime(int Quantum);
+	int getQuantumTime(void);
 };
 
