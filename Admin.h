@@ -6,7 +6,18 @@ using namespace std;
 class Admin
 {
 
+private:
+	vector<Process> processList;
 public:
-	void processAdminMenu(void);
+	
+	
+	Admin();
+	void ProcessAdminMenu(void);
+	void view_processes();
+	void createProcess();
+	void displayProcess();
+	void updateProcess(int id);
+	void deleteProcess(int id, int index);
+	~Admin();
 };
 
