@@ -4,6 +4,38 @@
 #include<queue>
 using namespace std;
 
+Process::Process()
+{
+	ID = rand();
+	burst = rand();
+	num = 0;
+}
+
+
+int Process::getiD()
+{
+	return ID;
+}
+
+void Process::setname(string name)
+{
+	name = name;
+}
+
+string Process::getname()
+{
+	return name;
+}
+
+void Process::setBurstTime(int burst)
+{
+	burst = burst;
+}
+
+int Process::getBurstTime()
+{
+	return burst;
+}
 
 //Processes will be taken from the user
 void Process::run_process() {
