@@ -1,7 +1,12 @@
+#include <vector>
+#include "stdafx.h"
 #include "Process.h"
-#include<iostream>
-#include<string.h>
-#include<queue>
+#include "Admin.h"
+
+#include <iostream>
+#include <string>
+#include <queue>
+
 using namespace std;
 
 Process::Process()
@@ -9,7 +14,16 @@ Process::Process()
 	ID = rand();
 	burst = rand();
 	num = 0;
+	state = 1;
+	timeRemaining = 0;
+	timeInReady = 0;
+	timeInWaiting = 0;
+	timeInStopped = 0;
+	timeInCompleted = 0;
+	cpuId = -1;
 }
+
+
 
 
 int Process::getiD()
@@ -36,6 +50,9 @@ int Process::getBurstTime()
 {
 	return burst;
 }
+
+
+
 
 //Processes will be taken from the user
 void Process::run_process() {
