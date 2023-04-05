@@ -24,16 +24,23 @@ void Admin::createProcess()
 	Process newProcess;
 	string name;
 	int burst;
-	cout << "Enter the name of the process: ";
+	int ID;
+	
+	cout << "Enter the ID of the process: " << endl;
+	cin >> ID;
+	newProcess.setiD(ID);
+
+	cout << "Enter the name of the process: "<<endl;
 	cin >> name;
 	newProcess.setname(name);
 
-	cout << "Enter the time cycles required to complete the process: ";
+	cout << "Enter the Burst time for the process: ";
 	cin >> burst;
 	newProcess.setBurstTime(burst);
 
 	//cout << "Enter the time cycles for the process to go to wait state: ";
 	//cin >> newProcess.timeToWait;
+
 	processList.push_back(newProcess);
 	cout << "Process added successfully." << endl;
 }
@@ -56,7 +63,7 @@ void Admin::updateProcess()
 		int id;
 		cout << "Enter the id of the process you want to update: " << endl;
 		cin >> id;
-			if (process.getiD() == id)
+			if (process.getID() == id)
 			{
 				cout << "Enter the name of the process: ";
 				cin >> process.name;//if not worked the use getter setter
@@ -77,7 +84,7 @@ void Admin::deleteProcess(int index)
 		cin>>id;
 		cout << "Enter the id of the process: " << endl;
 		cin >> id;
-			if (process.getiD() == id)
+			if (process.getID() == id)
 			{
 				processList.erase(processList.begin()+index);
 				cout << "Process deleted successfully." << endl;
@@ -90,19 +97,19 @@ void Admin::view_processes()
 {	
 	for (int i = 0; i < processList.size(); i++)
 	{
-		cout << "The process ID is " << processList[i].getiD() << ", process name is " << processList[i].getname() << " and the process burst time is " << processList[i].getBurstTime() << endl;
+		cout << "The process ID is " << processList[i].getID() << ", process name is " << processList[i].getname() << " and the process burst time is " << processList[i].getBurstTime() << endl;
 	}
 }
 
 
-void Process::run_process(vector <Process> selectedList)
+void Admin::run_process(vector <Process> selectedList)
 {
-
+	int quantum;
 	cout << "Enter the Time Quantum for the processes: " << endl;
 	cin >> quantum;
 
 
-	while (true)
+	/*while (true)
 	{
 		bool all_completed = true;
 		for (int i = 0; i < selectedList.size(); i++)
@@ -115,11 +122,11 @@ void Process::run_process(vector <Process> selectedList)
 		}
 		if (all_completed)
 			break;
-
+	*/
 		
 		for (int i = 0; i < selectedList.size(); i++)
 			{
-				while(selectedList[i].state != COMPLETED)
+				while(selectedList[i].state != 3)
 				{
 					selectedList[i].currTime = selectedList[i].getBurstTime();
 					if (selectedList[i].currTime < quantum)
@@ -127,7 +134,7 @@ void Process::run_process(vector <Process> selectedList)
 						selectedList[i].timeInRunning += selectedList[i].currTime;
 						selectedList[i].time_for_completion += selectedList[i].timeInRunning + selectedList[i].timeInWaiting + selectedList[i].timeInStopped;
 						selectedList[i].currTime = 0;
-						selectedList[i].state = COMPLETED;
+						selectedList[i].state = 3;
 						cout << "Process is Completed and the process completion time is " << selectedList[i].time_for_completion << endl;
 			
 					}
@@ -139,47 +146,46 @@ void Process::run_process(vector <Process> selectedList)
 						selectedList[i].currTime -= quantum;
 						if (selectedList[i].currTime == 0)
 						{
-							selectedList[i].state = COMPLETED;
+							selectedList[i].state = 3;
 							cout << "Process is Completed and the process completion time is " << selectedList[i].time_for_completion << endl;
 							break;
 						}
 						else
 						{
 							selectedList[i].state = get_random_status();
-							if (selectedList[i].state == WAITING)
+							if (selectedList[i].state == 1)
 							{
 								selectedList[i].timeInWaiting += 3;
 								selectedList[i].time_for_completion += selectedList[i].timeInWaiting;
 
-								selectedList[i].state = READY;
+								selectedList[i].state = 0;
 							}
-							else if (selectedList[i].state == STOPPED)
+							else if (selectedList[i].state == 2)
 							{
 								selectedList[i].timeInStopped += 1;
 								selectedList[i].time_for_completion += selectedList[i].timeInStopped;
 
 								if (selectedList[i].currTime == 0)
 								{
-									selectedList[i].state = COMPLETED;
+									selectedList[i].state = 3;
 									cout << "Process is Completed and the process completion time is " << selectedList[i].time_for_completion << endl;
-
 									break;
 								}
 								else
 								{
-									selectedList[i].state = READY;
+									selectedList[i].state = 0;
 								}
 							}
 						}
 					
 					}
 				}
-				cout << "The Waiting time for the first process is " << selectedList[i].timeInWaiting << endl;
-				cout << "The Stopped time for the first process is " << selectedList[i].timeInStopped << endl;
-				cout << "The Running time for the first process is " << selectedList[i].timeInRunning << endl;
+			cout << "The Waiting time for the first process is " << selectedList[i].timeInWaiting << endl;
+			cout << "The Stopped time for the first process is " << selectedList[i].timeInStopped << endl;
+			cout << "The Running time for the first process is " << selectedList[i].timeInRunning << endl;
 			} 
 
-		}
+		
 		
 
 
@@ -211,8 +217,9 @@ int Admin::get_random_status()
 		{
 			return 2;
 		}
-	
+		
 	}
+	return 0;
 }
 
 void Admin::selectProcess(int count)
@@ -222,13 +229,12 @@ void Admin::selectProcess(int count)
 		cout << "Select the ID of the process to run: " << endl;
 		cin >> id;
 		for (int i = 0; i < processList.size();i++) {
-			if (processList[i].getiD() == id)
+			if (processList[i].getID() == id)
 			{
 				selectedList[i] = processList[i];
 				
 			}
-			Process prt;
-			prt.run_process(selectedList);
+			admin->run_process(selectedList);
 		}
 		
 	
