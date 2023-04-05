@@ -43,10 +43,12 @@ public:
 
 	
 	//void setID(int ID);
-	int getiD();
+
+	void setiD(int id);
+	int getID();
 	//void setnoofprocess(int num);
 	//int getnoofprocess(void);
 	
-	void run_process(vector <Process> processList);
+	//void run_process(vector <Process> processList);
 	int get_random_status(void);
 };
