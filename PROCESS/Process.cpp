@@ -15,29 +15,31 @@ using namespace std;
 
 Process::Process()
 {
-	ID = rand();
-	burst = rand();
 	num = 0;
 	state = 1;
-	timeRemaining = 0;
 	timeInReady = 0;
 	timeInWaiting = 0;
 	timeInStopped = 0;
 	int timeInRunning= 0;
-	cpuId = -1;
+	//cpuId = -1;
 }
 
 
 
 
-int Process::getiD()
+void Process::setiD(int id)
 {
-	return ID;
+	ID = id;
 }
 
 void Process::setname(string name)
 {
 	name = name;
+}
+
+int Process::getID()
+{
+	return ID;
 }
 
 string Process::getname()
