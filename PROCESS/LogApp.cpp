@@ -3,6 +3,7 @@
 #include "LogApp.h"
 #include "User.h"
 #include "Admin.h"
+#include "Process.h"
 #include <iostream>
 #include <string.h>
 #include <fstream>
@@ -112,6 +113,7 @@ bool LogApp::admin_login()
 		cout << "****Invalid admin name and password****" << endl<<endl;
 		return false;
 	}
+	
 }
 
 
