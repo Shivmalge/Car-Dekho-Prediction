@@ -13,7 +13,7 @@ public:
 	bool check_username(string& username);
 	void register_user();
 	bool login_user();
-	bool admin_login();
+	bool LogApp::admin_login();
 	
 	void Login(Admin* admin,User* user);
 };
