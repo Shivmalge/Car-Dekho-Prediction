@@ -37,6 +37,7 @@ public:
 	void deleteProcess(int index);
 	void selectProcess(int count);
 	int get_random_status();
+	void run_process(vector <Process> selectedList);
 	
 
 		
