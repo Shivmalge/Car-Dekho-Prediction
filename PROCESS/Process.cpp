@@ -15,12 +15,12 @@ using namespace std;
 
 Process::Process()
 {
-	num = 0;
-	state = 1;
+	state = 0;
 	timeInReady = 0;
 	timeInWaiting = 0;
 	timeInStopped = 0;
-	int timeInRunning= 0;
+	timeInRunning= 0;
+	time_for_completion = 0;
 	//cpuId = -1;
 }
 
@@ -29,12 +29,12 @@ Process::Process()
 
 void Process::setiD(int id)
 {
-	ID = id;
+	this->ID = id;
 }
 
 void Process::setname(string name)
 {
-	name = name;
+	this->name = name;
 }
 
 int Process::getID()
@@ -49,7 +49,7 @@ string Process::getname()
 
 void Process::setBurstTime(int burst)
 {
-	burst = burst;
+	this->burst = burst;
 }
 
 int Process::getBurstTime()
