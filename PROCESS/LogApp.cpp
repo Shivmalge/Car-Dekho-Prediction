@@ -146,9 +146,8 @@ void LogApp::Login(Admin* admin, User* user)
 
 		case 3:
 			if (admin_login())
-			{
+			{	
 				admin->ProcessAdminMenu();
-
 			}
 			break;
 
