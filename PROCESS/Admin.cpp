@@ -132,12 +132,13 @@ void Admin::view_processes()
 }
 
 
-void Admin::run_process(vector <Process> selectedList)
+void Admin::run_process(vector <Process> selectedList,int quantum)
 {
-	int quantum;
+	cout << "The size of the selectedList is " << selectedList.size() << endl;
+	/*int quantum;
 	cout << "Enter the Time Quantum for the processes: " << endl;
 	cin >> quantum;
-
+	*/
 
 	/*while (true)
 	{
@@ -154,26 +155,47 @@ void Admin::run_process(vector <Process> selectedList)
 			break;
 	*/
 		
-		for (int i = 0; i < selectedList.size(); i++)
+	for (int i = 0; i < selectedList.size(); i++)
+		{	
+			selectedList[i].currTime = selectedList[i].getBurstTime();
+			while(selectedList[i].state != 3)
 			{
-				while(selectedList[i].state != 3)
-				{
-					selectedList[i].currTime = selectedList[i].getBurstTime();
-					if (selectedList[i].currTime < quantum)
-					{	
-						selectedList[i].timeInRunning += selectedList[i].currTime;
-						selectedList[i].time_for_completion += selectedList[i].timeInRunning + selectedList[i].timeInWaiting + selectedList[i].timeInStopped;
-						selectedList[i].currTime = 0;
+				if (selectedList[i].currTime <= quantum)
+				{	
+					selectedList[i].timeInRunning += selectedList[i].currTime;
+					selectedList[i].time_for_completion += selectedList[i].timeInRunning + selectedList[i].timeInWaiting + selectedList[i].timeInStopped;
+					selectedList[i].currTime = 0;
+					selectedList[i].state = 3;
+					cout << "Process is Completed and the process completion time is " << selectedList[i].time_for_completion << endl;
+			
+				}
+
+				else 
+				{	
+					selectedList[i].timeInRunning += quantum;
+					selectedList[i].time_for_completion += selectedList[i].timeInRunning + selectedList[i].timeInWaiting + selectedList[i].timeInStopped;
+					selectedList[i].currTime -= quantum;
+					/*if (selectedList[i].currTime == 0)
+					{
 						selectedList[i].state = 3;
 						cout << "Process is Completed and the process completion time is " << selectedList[i].time_for_completion << endl;
-			
-					}
+						break;
+					}*/
 
-					else if (selectedList[i].currTime >= quantum)
-					{	
-						selectedList[i].timeInRunning += selectedList[i].currTime;
-						selectedList[i].time_for_completion += selectedList[i].timeInRunning + selectedList[i].timeInWaiting + selectedList[i].timeInStopped;
-						selectedList[i].currTime -= quantum;
+					
+					selectedList[i].state = get_random_status();
+					if (selectedList[i].state == 1)
+					{
+						selectedList[i].timeInWaiting += 3;
+						selectedList[i].time_for_completion += selectedList[i].timeInWaiting;
+
+						selectedList[i].state = 0;
+					}
+					else if (selectedList[i].state == 2)
+					{
+						selectedList[i].timeInStopped += 1;
+						selectedList[i].time_for_completion += selectedList[i].timeInStopped;
+
 						if (selectedList[i].currTime == 0)
 						{
 							selectedList[i].state = 3;
@@ -182,38 +204,17 @@ void Admin::run_process(vector <Process> selectedList)
 						}
 						else
 						{
-							selectedList[i].state = get_random_status();
-							if (selectedList[i].state == 1)
-							{
-								selectedList[i].timeInWaiting += 3;
-								selectedList[i].time_for_completion += selectedList[i].timeInWaiting;
-
-								selectedList[i].state = 0;
-							}
-							else if (selectedList[i].state == 2)
-							{
-								selectedList[i].timeInStopped += 1;
-								selectedList[i].time_for_completion += selectedList[i].timeInStopped;
-
-								if (selectedList[i].currTime == 0)
-								{
-									selectedList[i].state = 3;
-									cout << "Process is Completed and the process completion time is " << selectedList[i].time_for_completion << endl;
-									break;
-								}
-								else
-								{
-									selectedList[i].state = 0;
-								}
-							}
+							selectedList[i].state = 0;
 						}
-					
 					}
+					
+					
 				}
+			}
 			cout << "The Waiting time for the first process is " << selectedList[i].timeInWaiting << endl;
 			cout << "The Stopped time for the first process is " << selectedList[i].timeInStopped << endl;
 			cout << "The Running time for the first process is " << selectedList[i].timeInRunning << endl;
-			} 
+		} 
 
 		
 		
@@ -227,6 +228,11 @@ void Admin::run_process(vector <Process> selectedList)
 	
 }
 
+
+void Admin::LessthanQuantum()
+{
+	
+}
 
 //void Admin::operation()
 
@@ -254,23 +260,23 @@ int Admin::get_random_status()
 	return 0;
 }
 
-void Admin::selectProcess(int count)
-{
+void Admin::selectProcess(int count,int quantum)
+{	
 	for (int i = 0; i < count; i++) {
 		int id = 0;
 		cout << "Select the ID of the process to run: " << endl;
 		cin >> id;
-		for (int i = 0; i < processList.size();i++) {
+		for (int i = 0; i < processList.size();i++) 
+		{
 			if (processList[i].getID() == id)
-			{
+			{	
 				selectedList.push_back(processList[i]);
+				//prcq.push(processList[i]);
 				
 			}
-			admin->run_process(selectedList);
 		}
-		
-	
 	}
+	admin->run_process(selectedList, quantum);
 
 
 }
