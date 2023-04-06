@@ -29,6 +29,9 @@ public:
 
 	vector<Process> processList;
 	vector<Process> selectedList;
+	queue<Process> prcq;
+
+	void LessthanQuantum();
 	void ProcessAdminMenu(void);
 	void view_processes();
 	void createProcess();
@@ -36,9 +39,10 @@ public:
 	void updateProcess();
 	//void deleteProcess();
 	void deleteProcess(int index);
-	void selectProcess(int count);
+	//void selectProcess(int count);
 	int get_random_status();
-	void run_process(vector <Process> selectedList);
+	void selectProcess(int count, int quantum);
+	void run_process(vector <Process> selectedList,int quantum);
 	
 
 		
