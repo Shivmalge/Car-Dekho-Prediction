@@ -34,6 +34,7 @@ public:
 	void createProcess();
 	void displayProcess();
 	void updateProcess();
+	//void deleteProcess();
 	void deleteProcess(int index);
 	void selectProcess(int count);
 	int get_random_status();
