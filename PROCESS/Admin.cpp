@@ -42,7 +42,7 @@ void Admin::createProcess()
 	//cin >> newProcess.timeToWait;
 
 	processList.push_back(newProcess);
-	cout << "Process added successfully." << endl;
+	cout << "Process added successfully." << endl << endl;
 }
 
 
@@ -57,47 +57,77 @@ void Admin::displayProcess()
 
 void Admin::updateProcess()
 {
-
+	int id;
+	cout << "Enter the id of the process you want to update: " << endl;
+	cin >> id;
 	for (auto& process : processList)
 		{	
-		int id;
-		cout << "Enter the id of the process you want to update: " << endl;
-		cin >> id;
-			if (process.getID() == id)
-			{
-				cout << "Enter the name of the process: ";
-				cin >> process.name;//if not worked the use getter setter
-				cout << "Enter the burst time for the process: ";
-				cin >> process.burst;
-				//cout << "Enter the time cycles for the process to go to wait state: ";
-				//cin >> process.time;
-				cout << "Process updated successfully." << endl;
-			}
-		}	cout << "update failed please check the process ID." << endl;
+
+		if (process.getID() == id)
+		{	
+			string Name;
+			cout << "Enter the updated name of the same process: ";
+			cin >> Name;
+			process.setname(Name);
+
+			int Burst;
+			cout << "Enter the updated burst time of the same process: ";
+			cin >> Burst;
+			process.setBurstTime(Burst);   
+
+			//cout << "Enter the time cycles for the process to go to wait state: ";
+			//cin >> process.time;
+			cout << "Process updated successfully." << endl << endl;
+		}
+		
+	}
+		
 }
 
-void Admin::deleteProcess(int index)
-{
+void Admin::deleteProcess(int index) {
+
+	if (index >= 0 && index < processList.size()) {
+		processList.erase(processList.begin() + index);
+		cout << "Process deleted successfully" << endl;
+	}
+	cout << "Please select the correct index" << endl;
+}
+
+
+/*void Admin::deleteProcess()
+{	
+	int id;
+	cout << "Enter the id of the process: " << endl;
+	cin >> id;
+	int size_of_processlist = sizeof(processList);
+	cout << size_of_processlist;
+
 	for (auto& process : processList)
 		{
-		int id;
-		cin>>id;
-		cout << "Enter the id of the process: " << endl;
-		cin >> id;
-			if (process.getID() == id)
+		if (id <= size_of_processlist & id != 0)
+		{
+			processList.erase(processList.begin() + id-1);
+			cout << "Process deleted successfully." << endl;
+		}
+		
+			/*if (process.getID() == id)
 			{
 				processList.erase(processList.begin()+index);
 				cout << "Process deleted successfully." << endl;
 			}
-		}
-}
+		}	
+	cout << "****Process ID not found. Please check and enter correct process ID***" << endl<<endl;
+}*/
+
+
 
 
 void Admin::view_processes()
-{	
+{		
+	cout << "The size of the processList is " << processList.size() << endl;
 	for (int i = 0; i < processList.size(); i++)
 	{
-		cout << "The process ID is " << processList[i].getID() << ", process name is " << processList[i].getname() << " and the process burst time is " << processList[i].getBurstTime() << endl;
+		cout << "The process ID is " << processList[i].getID() << ", process name is " << processList[i].getname() << " and the process burst time is " << processList[i].getBurstTime() << endl << endl;
 	}
 }
 
@@ -203,17 +233,19 @@ void Admin::run_process(vector <Process> selectedList)
 int Admin::get_random_status()
 {	
 	srand(time(0));
-	string choices[] = {"WAITING","STOP"};
+	//string choices[] = {"WAITING","STOP"};
+	int choices[] = { 1,2 };
 
-	vector<string> random;	
+	//vector<string> random;	
+	vector<int> random;
 	random.push_back(choices[rand() % 5]);
 	for (int i = 0; i < random.size(); i++)
 	{
-		if (random[i] == "WAITING")
+		if (random[i] == 1)
 		{
 			return 1;
 		}
-		else if (random[i] == "STOP")
+		else if (random[i] == 2)
 		{
 			return 2;
 		}
@@ -231,7 +263,7 @@ void Admin::selectProcess(int count)
 		for (int i = 0; i < processList.size();i++) {
 			if (processList[i].getID() == id)
 			{
-				selectedList[i] = processList[i];
+				selectedList.push_back(processList[i]);
 				
 			}
 			admin->run_process(selectedList);
@@ -247,42 +279,62 @@ void Admin::selectProcess(int count)
 
 void Admin::ProcessAdminMenu()
 {
-	cout << "\n--------------------------- Admin MENU ---------------------------------"<<endl;
-	cout << "Select what you want to perform: " << endl;
-	cout << "01. View processes\n 2. create process\n 3.update process\n 4. delete proces\n 5. Quit\n";
+	cout << "\n--------------------------- Admin MENU ---------------------------------" << endl << endl;;
+	
 	int choice;
-	cout << "\tEnter a choice: " << endl;
-	cin >> choice;
-	while (choice != 5)
-	{
-		if (choice < 0 || choice >4)
+	while (true)
+	{	
+		cout << "Select what you want to perform: " << endl;
+		cout << "1.create process\n 2.View processes\n 3.update process\n 4. delete proces\n 5. Quit\n" << endl<<endl;
+		cin >> choice;
+		if(choice < 0 || choice >5)
 		{
 			cout << "\nError: Invalid option Chosen: " << choice << " Try Again..\n";
 		}
+
 		else if (choice == 1)
 		{
-			admin->view_processes();
+			int num;
+			cout << endl << "\nEnter the number of processes you want to create: " << endl;
+			cin >> num;
+			for (int i = 0; i < num; i++)
+			{
+				admin->createProcess();
+			}
 		}
 		else if (choice == 2)
 		{
-			admin->createProcess();
+			admin->view_processes();
 		}
+
 		else if (choice == 3)
 		{
+			int count;
+			cout << "\nEnter how many processes do you want to update: " << endl << endl;
+			cin >> count;
+			for (int i = 0; i < count; i++)
+			{
+				admin->updateProcess();
+				break;
+			}
 
-			admin->updateProcess();
 		}
+
 		else if (choice == 4)
-		{
+		{	
+			admin->view_processes();
 			int index;
+			cout << "Enter the index of the proces in the processList you want to delete: " << endl;
 			cin >> index;
+		
 			admin->deleteProcess(index);
+			//admin->deleteProcess();
 		}
-
 
 		else
-		{
-			cout << "\nFunctionalities still yet to be updated" << endl;
-		}
+			break;
+
+
+
 	}
 }
